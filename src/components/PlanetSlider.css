@@ -1,0 +1,17 @@
+.planet-info-wrapper{
+  z-index: 2;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: white !important;
+  font-size: 1.5rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-weight: bold !important;
+  font-size: 1.5rem !important;
+}
