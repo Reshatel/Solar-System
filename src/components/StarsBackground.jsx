@@ -10,7 +10,6 @@ function CustomStars() {
   const materialRef = useRef()
   const groupRef = useRef()
 
-  // Ініціалізація позицій та опацитетів (лише кожна 10-та зірка буде миготлива)
   if (!positions.current.filled) {
     for (let i = 0; i < starCount; i++) {
       positions.current[i * 3] = (Math.random() - 0.5) * 300
