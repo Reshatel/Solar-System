@@ -1,12 +1,38 @@
-# React + Vite
+# 🌌 Solar System Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A visually immersive **React + Vite + Three.js** experience for exploring the planets of our solar system through 3D models, animated transitions, and a layered cosmic UI.  
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+👉 [https://Reshatel.github.io/Solar-System](https://Reshatel.github.io/Solar-System)
 
-## Expanding the ESLint configuration
+![Preview: Solar Slide](src/assets/preview.png)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 💫 Features
+
+* 🪐 **3D Planet Models**  
+  Each celestial body is rendered in GLB format with realistic rotation, scale, and orbital mood.
+
+* 🎛️ **Planetary Slider Navigation**  
+  Smooth swiper-based transitions between planets, each accompanied by atmospheric info overlays.
+
+* 🌠 **Starscape Background**  
+  Custom-generated star field with slow rotation and subtle blinking logic to enhance cosmic depth.
+
+* 🌀 **Performance-Optimized GLB Loading**  
+  Models load dynamically from the `/public/assets/` folder to ensure smooth GitHub Pages compatibility.
+
+## 🧪 Built With
+
+* [React](https://react.dev/)
+* [Vite](https://vitejs.dev/)
+* [Three.js](https://threejs.org/) via `@react-three/fiber`
+* [Framer Motion](https://www.framer.com/motion/)
+* [Swiper](https://swiperjs.com/)
+* GitHub Pages Deployment
+
+## 🚀 Setup & Local Dev
+
+```bash
+npm install
+npm run dev
