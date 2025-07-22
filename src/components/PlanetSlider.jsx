@@ -15,7 +15,6 @@ const planets = [
   { name: 'Saturn', model: 'assets/saturn.glb', scale: 1.2, rotation: [0.3, 1.2, 0] },
   { name: 'Uranus', model: 'assets/uranus.glb', scale: 0.00199, rotation: [2, 1.2, 0] },
   { name: 'Neptune', model: 'assets/neptune.glb', scale: 0.14 },
-  // { name: 'Sun', model: 'assets/sun.glb', scale: 0.2599 },
   { name: 'Mercury', model: 'assets/mercury.glb', scale: 0.1599 },
   { name: 'Venus', model: 'assets/venus.glb', scale: 0.009 },
 ]

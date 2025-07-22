@@ -8,6 +8,9 @@ export function RotatingPlanet({ modelPath, scale, initialRotation }) {
   const [isDragging, setIsDragging] = useState(false)
   const [lastPos, setLastPos] = useState({ x: 0, y: 0 })
 
+  const baseScale = useRef(scale) // Зберігаємо оригінальний масштаб
+  const [zoomFactor, setZoomFactor] = useState(1)
+
   const { scene } = useGLTF(modelPath)
 
   useEffect(() => {
@@ -33,14 +36,46 @@ export function RotatingPlanet({ modelPath, scale, initialRotation }) {
     groupRef.current.rotation.x += deltaY * 0.005
 
     velocity.current = { x: deltaY * 0.005, y: deltaX * 0.005 }
-
     setLastPos({ x: e.clientX, y: e.clientY })
+  }
+
+  const handleWheel = (e) => {
+    e.stopPropagation()
+    const delta = e.deltaY * -0.001
+    setZoomFactor((prev) => {
+      const newZoom = Math.min(Math.max(prev + delta, 0.5), 5)
+      return newZoom
+    })
+  }
+
+  // Touch Zoom
+  const lastDistance = useRef(null)
+
+  const handleTouchMove = (e) => {
+    if (e.touches.length === 2) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX
+      const dy = e.touches[0].clientY - e.touches[1].clientY
+      const distance = Math.sqrt(dx * dx + dy * dy)
+
+      if (lastDistance.current !== null) {
+        const delta = (distance - lastDistance.current) * 0.01
+        setZoomFactor((prev) => {
+          const newZoom = Math.min(Math.max(prev + delta, 0.5), 5)
+          return newZoom
+        })
+      }
+
+      lastDistance.current = distance
+    }
+  }
+
+  const handleTouchEnd = () => {
+    lastDistance.current = null
   }
 
   useFrame(() => {
     if (!groupRef.current) return
 
-    // Після drag — інерція
     if (!isDragging && (Math.abs(velocity.current.x) > 0.0001 || Math.abs(velocity.current.y) > 0.0001)) {
       groupRef.current.rotation.y += velocity.current.y
       groupRef.current.rotation.x += velocity.current.x
@@ -49,7 +84,6 @@ export function RotatingPlanet({ modelPath, scale, initialRotation }) {
       velocity.current.x *= 0.95
     }
 
-    // Автоматичне обертання по осі X (повільне)
     if (!isDragging && Math.abs(velocity.current.y) < 0.0001 && Math.abs(velocity.current.x) < 0.0001) {
       groupRef.current.rotation.y -= 0.002
     }
@@ -58,11 +92,18 @@ export function RotatingPlanet({ modelPath, scale, initialRotation }) {
   return (
     <group
       ref={groupRef}
-      scale={scale}
+      scale={[
+        baseScale.current * zoomFactor,
+        baseScale.current * zoomFactor,
+        baseScale.current * zoomFactor
+      ]}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
       onPointerMove={handlePointerMove}
+      onWheel={handleWheel}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       <primitive object={scene} />
     </group>
